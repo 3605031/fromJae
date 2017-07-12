@@ -60,18 +60,49 @@ nav ul li a:hover {
 .cloud {
 	width: 40%;
 	position: relative;
-	top: 0;
+	top: -6vh;
 	left: 30vw;
 	z-index: 2;
 }
 .door {
 	height: 70%;
 	position: absolute;
-	top: 10vh;
+	top: 1vh;
 	left: 42vw;
 	z-index: 1;
 }
 
+.days {
+	font-family: "Open Sans";
+	color: rgba(0, 35, 122, 0.5);
+	font-size: 18px;
+	position: absolute;;
+	top: 37vh;
+	left: 40vw;
+	z-index: 3;
+}
+
+.timeUnlock {
+	font-family: "Open Sans";
+	color: white;
+	font-size: 50px;
+	position: absolute;;
+	top: 35vh;
+	left: 45vw;
+	z-index: 3;
+
+}
+
+.text {
+	font-family: "Open Sans";
+	color: white;
+	font-size: 25px;
+	position: absolute;;
+	top: 41vh;
+	left: 44vw;
+	z-index: 3;
+
+}
 /*----------------------------End of Door and Clouds---------------------------------------*/
 
 
