@@ -74,8 +74,12 @@ html {
 	z-index: -1;
 }
 
-.door {
+.sparkle {
 	z-index: -2;
+	width: 40%;
+	position: absolute;
+	bottom: 0;
+	left: 30%;
 
 }
 
