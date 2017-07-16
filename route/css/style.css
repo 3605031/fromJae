@@ -658,21 +658,21 @@ header {
 /* __________ Top Info __________ */
 .top_info {
 	padding:10px 0;
-	background-color:rgba(255,255,255,0.65);
+	background-color:rgba(255,255,255,0.30);
 }
 
 .phone_top {
 	float:right;
 	text-transform:uppercase;
 	font-size:11px;
-	color:#333;
+	color:white;
 }
 .phone_top a {
 	display:inline-block;
 	padding-left:6px;
 	font-weight:900;
 	font-size:14px;
-	color:#333 !important;
+	color:white !important;
 }
 
 .live_chat {
@@ -684,7 +684,7 @@ header {
 	display:block;
 	text-transform:uppercase;
 	font-size:11px;
-	color:#333;
+	color:white;
 }
 .live_chat a:hover {color:#999;}
 .live_chat a:before {
@@ -923,7 +923,7 @@ header {
 	display:block;
 	text-transform:uppercase;
 	font-size:11px;
-	color:#333;
+	color:white;
 }
 .secondary_menu li a:hover {color:#242424;}
 
