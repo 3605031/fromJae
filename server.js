@@ -11,7 +11,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 // === Connecting mongoose
-mongoose.connect("localhost:27017/fromjae");
+// mongoose.connect("localhost:27017/fromjae");
 
 
 // Sets up the Express app to handle data parsing
