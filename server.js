@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 // Sets up the Express App
 // =============================================================
 var app = express();
-var PORT = 3000;
+var port = process.env.PORT || 3000;
 
 // === Connecting mongoose
 mongoose.connect("localhost:27017/fromjae");
@@ -29,8 +29,8 @@ app.use(express.static('public'));
 
 
 //Express listening to port
-app.listen(PORT, function() {
-    console.log("express listening to", PORT)
+app.listen(port, function() {
+    console.log("express listening to", port)
 });
 
 //Routes
