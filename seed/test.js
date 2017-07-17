@@ -3,7 +3,7 @@ var router = express.Router();
 var mongodb = require('mongodb')
 
 var MongoClient = mongodb.MongoClient;
-var url = 'mongodb://localhost:27017/sampsite';
+var url = 'mongodb://heroku_8jhz997c:l45ds21ar26nhqutcvglrjftq3@ds161742.mlab.com:61742/heroku_8jhz997c';
 
 var item = {
     title: "test2",
