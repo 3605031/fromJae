@@ -1,7 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-var mongoose = require("mongoose");
+var mongodb = require('mongodb');
+
+var MongoClient = mongodb.MongoClient;
+
 
 
 
@@ -37,3 +40,41 @@ app.listen(port, function() {
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "homepage.html"));
 });
+
+var products;
+app.get("/api/:query?", function(req, res) {
+    let chosen = req.params.query;
+    //Temporary solution without knowing React + Handlebars
+    var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
+    switch(chosen){
+        case "all":
+        MongoClient.connect(url, function(err, db) {
+            if(err){
+                console.log("can't connect",err)
+            } else {
+                //Connected
+                console.log("connection established");
+                //Get inventory collection
+                var collection = db.collection('inventory');
+                //Find all inside inventory
+                collection.find({}).toArray(function(error,result){
+                    if(error){
+                        res.send(error);
+                    } else if (result.length){
+                        res.json(result);
+                    } else {
+                        res.send('nothing is found');
+                    }
+                });
+                //Close connection
+                db.close();
+            }
+        })
+        break;
+    }
+});
+
+
+
+
+                            

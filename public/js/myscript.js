@@ -1,3 +1,4 @@
+
 window.jQuery = window.$ = jQuery;
 
 
@@ -8,7 +9,7 @@ jQuery(window).load(function () {
 	//Preloader
 	setTimeout("jQuery('#preloader').animate({'opacity' : '0'},300,function(){jQuery('#preloader').hide()})",800);
 	setTimeout("jQuery('.preloader_hide, .selector_open').animate({'opacity' : '1'},500)",800);
-
+	
 });
 
 
@@ -85,7 +86,6 @@ jQuery(document).ready(function() {
 
 
 
-	
 
 
 /*-----------------------------------------------------------------------------------*/
@@ -155,10 +155,10 @@ jQuery(document).ready(function() {
 		var ifr_source = $(this).attr('src');
 		var wmode = "wmode=transparent";
 		if(ifr_source.indexOf('?') != -1) {
-		var getQString = ifr_source.split('?');
-		var oldString = getQString[1];
-		var newString = getQString[0];
-		$(this).attr('src',newString+'?'+wmode+'&'+oldString);
+			var getQString = ifr_source.split('?');
+			var oldString = getQString[1];
+			var newString = getQString[0];
+			$(this).attr('src',newString+'?'+wmode+'&'+oldString);
 		}
 		else $(this).attr('src',ifr_source+'?'+wmode);
 	});
@@ -183,9 +183,9 @@ $(window).load(function() {
 				index = $(this).index();
 				$items.removeClass('active');
 				$(this).addClass('active');
-	
+				
 				var myUrl = $(this).find('.open-project').attr("data-url") + " .tover_view_page"; 
-		  
+				
 				$('#tovar_content').animate({opacity:0},function(){
 					$("#tovar_content").load(myUrl,function(e){
 						
@@ -221,7 +221,7 @@ $(window).load(function() {
 					$('#tovar_content').animate({opacity:1});
 				});
 				
-		    
+				
 				//Project Page Open
 				$('#modal-body').show(function(){
 					$('#tovar_content');}).show(2000,function(){
@@ -231,256 +231,256 @@ $(window).load(function() {
 							});	
 						});
 					});
-			} return false;       
-		});
-	
-		//Project Page Close
-		$(document).on('click', '#tover_view_page_close, .close_block', function(event) {
-			$('#tovar_content').animate({opacity:0}, 400,function(){	
-				$('#modal-body').removeClass('modal-active').hide(400);
+				} return false;       
 			});
 			
-			$items.removeClass('active');
+			//Project Page Close
+			$(document).on('click', '#tover_view_page_close, .close_block', function(event) {
+				$('#tovar_content').animate({opacity:0}, 400,function(){	
+					$('#modal-body').removeClass('modal-active').hide(400);
+				});
+				
+				$items.removeClass('active');
+				return false;
+			});
+			
+		})();
+	});
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	FANCYSELECT
+	/*-----------------------------------------------------------------------------------*/
+	$(document).ready(function() {
+		$('.basic').fancySelect();
+	});
+	
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	PARRALAX
+	/*-----------------------------------------------------------------------------------*/
+	$(window).load(function() {
+		if ($(window).width() > 1025){
+			jQuery('.flexslider.top_slider .slides li').parallax("50%", -0.5);
+			jQuery('.parallax').parallax("50%", -0.5);
+		}
+		
+	});
+	
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	SCROLL TOP
+	/*-----------------------------------------------------------------------------------*/
+	jQuery(document).ready(function() {	
+		$("a.back_top").click(function() {
+			$("html, body").animate({ scrollTop: 0 }, "slow");
 			return false;
 		});
+	});
 	
-	})();
-});
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	FANCYSELECT
-/*-----------------------------------------------------------------------------------*/
-$(document).ready(function() {
-	$('.basic').fancySelect();
-});
-
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	PARRALAX
-/*-----------------------------------------------------------------------------------*/
-$(window).load(function() {
-	if ($(window).width() > 1025){
-		jQuery('.flexslider.top_slider .slides li').parallax("50%", -0.5);
-		jQuery('.parallax').parallax("50%", -0.5);
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	TOVAR FOTO HEIGHT
+	/*-----------------------------------------------------------------------------------*/
+	jQuery(window).load(function(){
+		tovarfotoHeight();
+		
+	});
+	
+	jQuery(window).resize(function(){
+		tovarfotoHeight();
+		
+	});
+	
+	function tovarfotoHeight() {
+		var tovar_img_h = $('.tovar_img_wrapper img').height();
+		
+		$('.tovar_img_wrapper').css('height', tovar_img_h);
 	}
 	
-});
-
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	SCROLL TOP
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {	
-	$("a.back_top").click(function() {
-		$("html, body").animate({ scrollTop: 0 }, "slow");
-		return false;
-	});
-});
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	TOVAR FOTO HEIGHT
-/*-----------------------------------------------------------------------------------*/
-jQuery(window).load(function(){
-	tovarfotoHeight();
-
-});
-
-jQuery(window).resize(function(){
-	tovarfotoHeight();
 	
-});
-
-function tovarfotoHeight() {
-	var tovar_img_h = $('.tovar_img_wrapper img').height();
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	Tovar Sizes
+	/*-----------------------------------------------------------------------------------*/
+	jQuery(document).ready(function() {
+		// toggle variable sizes of all elements
+		$('#toggle-sizes').find('a.view_full').click(function(){
+			$('a.view_box').removeClass('active');
+			$(this).addClass('active');
+			$('.shop_block').addClass('variable-sizes').isotope('reLayout');
+			return false;
+		});
+		$('#toggle-sizes').find('a.view_box').click(function(){
+			$('a.view_full').removeClass('active');
+			$(this).addClass('active');
+			$('.shop_block').removeClass('variable-sizes').isotope('reLayout');
+			return false;
+		});
+	});
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	Tabs Shortcode
+	/*-----------------------------------------------------------------------------------*/
+	jQuery(document).ready(function() {
+		$('ul.tabs').on('click', 'li:not(.current)', function() {
+			$(this).addClass('current').siblings().removeClass('current')
+			.parents('div.tovar_information, div.tabs_block').find('div.box').eq($(this).index()).fadeIn(150).siblings('div.box').hide();
+		});
+	});
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	ToolTips Shortcode
+	/*-----------------------------------------------------------------------------------*/
+	// jQuery(document).ready(function() {
+	// 	$('[data-toggle="tooltip"]').tooltip();
+	// });
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	404 PAGE
+	/*-----------------------------------------------------------------------------------*/
+	jQuery(window).load(function(){
+		errorpageHeight();
+		
+	});
+	
+	jQuery(window).resize(function(){
+		errorpageHeight();
+		
+	});
+	
+	function errorpageHeight() {
+		if ($(window).width() > 1025){
+			var body_h = $(window).height();
+			var footer_h = $('footer').height() + 34;
+			var errorpage_h = Math.abs(body_h - footer_h);
+			$('.page404').css('min-height', errorpage_h);
 			
-	$('.tovar_img_wrapper').css('height', tovar_img_h);
-}
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	Tovar Sizes
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {
-	// toggle variable sizes of all elements
-	$('#toggle-sizes').find('a.view_full').click(function(){
-		$('a.view_box').removeClass('active');
-		$(this).addClass('active');
-		$('.shop_block').addClass('variable-sizes').isotope('reLayout');
-		return false;
-	});
-	$('#toggle-sizes').find('a.view_box').click(function(){
-		$('a.view_full').removeClass('active');
-		$(this).addClass('active');
-		$('.shop_block').removeClass('variable-sizes').isotope('reLayout');
-		return false;
-	});
-});
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	Tabs Shortcode
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {
-    $('ul.tabs').on('click', 'li:not(.current)', function() {
-		$(this).addClass('current').siblings().removeClass('current')
-		.parents('div.tovar_information, div.tabs_block').find('div.box').eq($(this).index()).fadeIn(150).siblings('div.box').hide();
-	});
-});
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	ToolTips Shortcode
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {
-    $('[data-toggle="tooltip"]').tooltip();
-});
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	404 PAGE
-/*-----------------------------------------------------------------------------------*/
-jQuery(window).load(function(){
-	errorpageHeight();
-
-});
-
-jQuery(window).resize(function(){
-	errorpageHeight();
-	
-});
-
-function errorpageHeight() {
-	if ($(window).width() > 1025){
-		var body_h = $(window).height();
-		var footer_h = $('footer').height() + 34;
-		var errorpage_h = Math.abs(body_h - footer_h);
-		$('.page404').css('min-height', errorpage_h);
-		
-		var wrapper404_h = $('.wrapper404').height() - 100;
-		var padding_top = Math.abs((errorpage_h - wrapper404_h)/2);
-		
-		$('.wrapper404').css('padding-top', padding_top);
-	}
-}
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	PRICE HOVER EFFECT
-/*-----------------------------------------------------------------------------------*/
-$(document).ready(function() {
-	$(".price_item").hover(
-		function () {
-			$(this).addClass("price_active");
+			var wrapper404_h = $('.wrapper404').height() - 100;
+			var padding_top = Math.abs((errorpage_h - wrapper404_h)/2);
+			
+			$('.wrapper404').css('padding-top', padding_top);
 		}
-	);
-	$(".price_item").hover(
-		function () {
-			$('.price_item').removeClass("price_active");
+	}
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	PRICE HOVER EFFECT
+	/*-----------------------------------------------------------------------------------*/
+	$(document).ready(function() {
+		$(".price_item").hover(
+			function () {
 				$(this).addClass("price_active");
 			}
 		);
-});
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	ACCORDION TOGGLES
-/*-----------------------------------------------------------------------------------*/
-$(document).ready(function(){
-	
-	$("#accordion h4").eq(2).addClass("active");
-	$("#accordion .accordion_content").eq(2).show();
-
-	$("#accordion h4").click(function(){
-		$(this).next(".accordion_content").slideToggle("slow")
-		.siblings(".accordion_content:visible").slideUp("slow");
-		$(this).toggleClass("active");
-		$(this).siblings("h4").removeClass("active");
-	});
-
-});
-
-
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	VIDEO PLAYER
-/*-----------------------------------------------------------------------------------*/
-$(document).ready(function(){
-	$('.video_container').click(function(){
-	var video = '<iframe src="'+ $(this).attr('data-video') +'"></iframe>';
-	$(this).replaceWith(video); });
-});
-
-
-
-
-/*-----------------------------------------------------------------------------------*/
-/*	CONTACT FORM
-/*-----------------------------------------------------------------------------------*/
-jQuery(document).ready(function() {
-	$("#ajax-contact-form").submit(function() {
-		var str = $(this).serialize();		
-		$.ajax({
-			type: "POST",
-			url: "contact_form/contact_process.php",
-			data: str,
-			success: function(msg) {
-				// Message Sent - Show the 'Thank You' message and hide the form
-				if(msg == 'OK') {
-					result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
-					$("#fields").hide();
-				} else {
-					result = msg;
-				}
-				$('#note').html(result);
+		$(".price_item").hover(
+			function () {
+				$('.price_item').removeClass("price_active");
+				$(this).addClass("price_active");
 			}
-		});
-		return false;
+		);
 	});
-});
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	ACCORDION TOGGLES
+	/*-----------------------------------------------------------------------------------*/
+	$(document).ready(function(){
+		
+		$("#accordion h4").eq(2).addClass("active");
+		$("#accordion .accordion_content").eq(2).show();
+		
+		$("#accordion h4").click(function(){
+			$(this).next(".accordion_content").slideToggle("slow")
+			.siblings(".accordion_content:visible").slideUp("slow");
+			$(this).toggleClass("active");
+			$(this).siblings("h4").removeClass("active");
+		});
+		
+	});
+	
+	
+	
+	
+	
+	
+	/*-----------------------------------------------------------------------------------*/
+	/*	VIDEO PLAYER
+	/*-----------------------------------------------------------------------------------*/
+	$(document).ready(function(){
+		$('.video_container').click(function(){
+			var video = '<iframe src="'+ $(this).attr('data-video') +'"></iframe>';
+			$(this).replaceWith(video); });
+		});
+		
+		
+		
+		
+		/*-----------------------------------------------------------------------------------*/
+		/*	CONTACT FORM
+		/*-----------------------------------------------------------------------------------*/
+		jQuery(document).ready(function() {
+			$("#ajax-contact-form").submit(function() {
+				var str = $(this).serialize();		
+				$.ajax({
+					type: "POST",
+					url: "contact_form/contact_process.php",
+					data: str,
+					success: function(msg) {
+						// Message Sent - Show the 'Thank You' message and hide the form
+						if(msg == 'OK') {
+							result = '<div class="notification_ok">Your message has been sent. Thank you!</div>';
+							$("#fields").hide();
+						} else {
+							result = msg;
+						}
+						$('#note').html(result);
+					}
+				});
+				return false;
+			});
+		});
+		
+		
+		
+	
+		
