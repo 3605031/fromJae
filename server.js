@@ -3,9 +3,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 var mongodb = require('mongodb');
 var exphbs = require("express-handlebars");
+//Logger ??
+var morgan = require('morgan');
+
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+
 
 var MongoClient = mongodb.MongoClient;
-
 
 
 
@@ -22,6 +27,12 @@ app.engine("handlebars", exphbs({defaultLayout:"main"}));
 app.set("view engine","handlebars")
 
 
+//Look more into morgan**
+//app.use(morgan('dev'));
+//Cookie(not necessary, delete this later) and Express Session (Note that resave might affect performance/might not b necessary)
+app.use(cookieParser());
+app.use(session({secret: 'anystringoftext', saveUninitialized: true, resave:true}));
+
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -31,6 +42,9 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({
     type: "application/vnd.api+json"
 }));
+
+
+
 
 //Set up static files
 app.use(express.static('public'));
@@ -80,18 +94,9 @@ app.get("/api/:query?", function(req, res) {
 });
 
 
-
-
-// Data
-var lunches = [
-  {
-    lunch: "Beet & Goat Cheese Salad with minestrone soup."
-  }, {
-    lunch: "Pizza, two double veggie burgers, fries with a big glup"
-  }
-];
-// Routes
-app.get("/weekday", function(req, res) {
+//Check Stock and price before adding to cart
+app.get("/item/:name", function(req, res) {
+    var chosen = req.params.name;
     var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
     MongoClient.connect(url, function(err, db) {
             if(err){
@@ -102,12 +107,11 @@ app.get("/weekday", function(req, res) {
                 //Get inventory collection
                 var collection = db.collection('inventory');
                 //Find all inside inventory
-                collection.find({}).toArray(function(error,result){
+                collection.find({product_name:chosen }).toArray(function(error,result){
                     if(error){
                         res.send(error);
                     } else if (result.length){
-                        console.log(result[0].url);
-                        res.render("index",{lunch:result[0].url});
+                        res.json(result);
                     } else {
                         res.send('nothing is found');
                     }
@@ -116,5 +120,47 @@ app.get("/weekday", function(req, res) {
                 db.close();
             }
         })
+
+
 });
+
+
+
+
+
+// Test codes for handlebars
+// var lunches = [
+//   {
+//     lunch: "Beet & Goat Cheese Salad with minestrone soup."
+//   }, {
+//     lunch: "Pizza, two double veggie burgers, fries with a big glup"
+//   }
+// ];
+// // Routes
+// app.get("/weekday", function(req, res) {
+//     var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
+//     MongoClient.connect(url, function(err, db) {
+//             if(err){
+//                 console.log("can't connect",err)
+//             } else {
+//                 //Connected
+//                 console.log("connection established");
+//                 //Get inventory collection
+//                 var collection = db.collection('inventory');
+//                 //Find all inside inventory
+//                 collection.find({}).toArray(function(error,result){
+//                     if(error){
+//                         res.send(error);
+//                     } else if (result.length){
+//                         console.log(result[0].url);
+//                         res.render("index",{lunch:result[0].url});
+//                     } else {
+//                         res.send('nothing is found');
+//                     }
+//                 });
+//                 //Close connection
+//                 db.close();
+//             }
+//         })
+// });
               
