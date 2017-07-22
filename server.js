@@ -99,68 +99,71 @@ app.get("/item/:name", function(req, res) {
     var chosen = req.params.name;
     var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
     MongoClient.connect(url, function(err, db) {
-            if(err){
-                console.log("can't connect",err)
-            } else {
-                //Connected
-                console.log("connection established");
-                //Get inventory collection
-                var collection = db.collection('inventory');
-                //Find all inside inventory
-                collection.find({product_name:chosen }).toArray(function(error,result){
-                    if(error){
-                        res.send(error);
-                    } else if (result.length){
-                        res.json(result);
-                    } else {
-                        res.send('nothing is found');
-                    }
-                });
-                //Close connection
-                db.close();
-            }
-        })
-
-
+        if(err){
+            console.log("can't connect",err)
+        } else {
+            //Connected
+            console.log("connection established");
+            //Get inventory collection
+            var collection = db.collection('inventory');
+            //Find all inside inventory
+            collection.find({product_name:chosen }).toArray(function(error,result){
+                if(error){
+                    res.send(error);
+                } else if (result.length){
+                    res.json(result);
+                } else {
+                    res.send('nothing is found');
+                }
+            });
+            //Close connection
+            db.close();
+        }
+    })
+    
+    
 });
 
-
+//*********Checkout*****************/
+app.get("/checkout.html", function(req, res) {
+    res.sendFile(path.join(__dirname, "checkout.html"));
+});
 
 
 
 // Test codes for handlebars
 // var lunches = [
-//   {
-//     lunch: "Beet & Goat Cheese Salad with minestrone soup."
-//   }, {
-//     lunch: "Pizza, two double veggie burgers, fries with a big glup"
-//   }
-// ];
-// // Routes
-// app.get("/weekday", function(req, res) {
-//     var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
-//     MongoClient.connect(url, function(err, db) {
-//             if(err){
-//                 console.log("can't connect",err)
-//             } else {
-//                 //Connected
-//                 console.log("connection established");
-//                 //Get inventory collection
-//                 var collection = db.collection('inventory');
-//                 //Find all inside inventory
-//                 collection.find({}).toArray(function(error,result){
-//                     if(error){
-//                         res.send(error);
-//                     } else if (result.length){
-//                         console.log(result[0].url);
-//                         res.render("index",{lunch:result[0].url});
-//                     } else {
-//                         res.send('nothing is found');
-//                     }
-//                 });
-//                 //Close connection
-//                 db.close();
-//             }
-//         })
-// });
-              
+    //   {
+        //     lunch: "Beet & Goat Cheese Salad with minestrone soup."
+        //   }, {
+            //     lunch: "Pizza, two double veggie burgers, fries with a big glup"
+            //   }
+            // ];
+            // // Routes
+            // app.get("/weekday", function(req, res) {
+                //     var url = 'mongodb://Blake:Soithan1995@ds034677.mlab.com:34677/fromjae';
+                //     MongoClient.connect(url, function(err, db) {
+                    //             if(err){
+                        //                 console.log("can't connect",err)
+                        //             } else {
+                            //                 //Connected
+                            //                 console.log("connection established");
+                            //                 //Get inventory collection
+                            //                 var collection = db.collection('inventory');
+                            //                 //Find all inside inventory
+                            //                 collection.find({}).toArray(function(error,result){
+                                //                     if(error){
+                                    //                         res.send(error);
+                                    //                     } else if (result.length){
+                                        //                         console.log(result[0].url);
+                                        //                         res.render("index",{lunch:result[0].url});
+                                        //                     } else {
+                                            //                         res.send('nothing is found');
+                                            //                     }
+                                            //                 });
+                                            //                 //Close connection
+                                            //                 db.close();
+                                            //             }
+                                            //         })
+                                            // });
+                                            

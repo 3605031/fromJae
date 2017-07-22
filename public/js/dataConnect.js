@@ -4,7 +4,7 @@ $(document).ready(function() {
   //Temporary Solution for Dom images load without React
   
   function localLength(arr){
-
+    
   }
   
   //FEATURED ITEM data attachments
@@ -18,10 +18,34 @@ $(document).ready(function() {
         
         $('.feature_item'+i).find('img').attr("src",data[i].url);
         $('.feature_item_title'+i).html(data[i].product_name);
+        //Put in $00.00 format
         $('.feature_item_price'+i).html("$"+parseFloat(Math.round(data[i].price * 100) / 100).toFixed(2));
         $('.feature_item_quantity'+i).html("Quantity: "+data[i].quantity);
       };
     });
+    var a = JSON.parse(localStorage.getItem("cart"));
+    if(a!= null){
+      $("#bagquantity").text(a.length);
+      for(var y=0; y < a.length; y++){
+        if(y == 0){  
+          $(".cart-main").html(
+            '<li class="clearfix">'
+            +	'<img class="cart_item_product" src="'+ a[y].url + '"alt="" />'
+            +	'<a href="product-page.html" class="cart_item_title">'+ a[y].name + '</a>'
+            +	'<span class="cart_item_price">'+ a[y].quantity + '× $'+ parseFloat(Math.round(a[y].price * 100) / 100).toFixed(2)+'</span>'
+            + '</li>'
+          );
+        } else{
+          $(".cart-main").append(
+            '<li class="clearfix">'
+            +	'<img class="cart_item_product" src="'+ a[y].url + '"alt="" />'
+            +	'<a href="product-page.html" class="cart_item_title">'+ a[y].name + '</a>'
+            +	'<span class="cart_item_price">'+ a[y].quantity + '× $'+ parseFloat(Math.round(a[y].price * 100) / 100).toFixed(2)+'</span>'
+            + '</li>'
+          );
+        }
+      }
+    }
   }
   
   updatePage();
@@ -50,30 +74,72 @@ $(document).ready(function() {
       }
       else if(data[0].quantity>0){
         Materialize.toast('Added to Cart!', 2000);
+        //Adding shopping cart to local storage
         var localcart = localStorage.getItem("cart");
+        var a = [];
         if(localcart == undefined){
-          var a = [{name:data[0].product_name,quantity:data[0].quantity}];
-          localStorage.setItem('cart', JSON.stringify(a));
-        } else {
-          var a = []
-          a = JSON.parse(localStorage.getItem("cart"));
-          console.log(a.length);
-          var done = false;
-          for(var i = 0; i < a.length; a++){
-            if(a[i].name ==data[0].product_name ){
-              a[i].quantity++;
-              done = true;
+          //Create a new one if it doesn't exist
+          a.push({name: data[0].product_name,
+            quantity: 1,
+            url: data[0].url,
+            price: data[0].price});
+            
+            localStorage.setItem('cart', JSON.stringify(a));
+            console.log("new shopping cart created");
+          } else {
+            //Get cart from local storage if exist
+            a = JSON.parse(localStorage.getItem("cart"));
+            
+            var done = false;
+            
+            
+            for(var i = 0; i < a.length; i++){
+              if(a[i].name ==data[0].product_name ){
+                a[i].quantity++;
+                done = true;
+                
+              }
             }
+            //If everything is good, add to local storage/
+            if(done == false){
+              a.push({name:data[0].product_name,
+                quantity: 1,
+                url: data[0].url,
+                price: data[0].price});
+                localStorage.setItem('cart', JSON.stringify(a));
+              } else {
+                localStorage.setItem('cart', JSON.stringify(a));
+              }
+            }
+            
+            //Add to cart dropdown
+            console.log("cart length: "+a.length)
+            a = JSON.parse(localStorage.getItem("cart"));
+            for(var y=0; y < a.length; y++){
+              if(y == 0){  
+                $(".cart-main").html(
+                  '<li class="clearfix">'
+                  +	'<img class="cart_item_product" src="'+ a[y].url + '"alt="" />'
+                  +	'<a href="product-page.html" class="cart_item_title">'+ a[y].name + '</a>'
+                  +	'<span class="cart_item_price">'+ a[y].quantity + '× $'+ parseFloat(Math.round(a[y].price * 100) / 100).toFixed(2)+'</span>'
+                  + '</li>'
+                );
+              } else{
+                $(".cart-main").append(
+                  '<li class="clearfix">'
+                  +	'<img class="cart_item_product" src="'+ a[y].url + '"alt="" />'
+                  +	'<a href="product-page.html" class="cart_item_title">'+ a[y].name + '</a>'
+                  +	'<span class="cart_item_price">'+ a[y].quantity + '× $'+ parseFloat(Math.round(a[y].price * 100) / 100).toFixed(2)+'</span>'
+                  + '</li>'
+                );
+              }
+            }
+            
           }
-          if(!done){
-          a.push({name:data[0].product_name,quantity:data[0].quantity});
-          localStorage.setItem('cart',JSON.stringify(a));
-          }
-        }
-      }
+        });
+      })
+      
+      
+      
     });
-  })
-  
-  
-  
-});
+    
